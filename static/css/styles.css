@@ -1,0 +1,331 @@
+:root {
+  --bg: #090b10;
+  --surface: #121724;
+  --surface-alt: #1b2133;
+  --accent: #4ade80;
+  --accent-strong: #22c55e;
+  --text: #eef1ff;
+  --muted: #9ba4c0;
+  --danger: #f97316;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, #192030 0%, #090b10 55%);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("https://minecraft.wiki/images/Pack.png");
+  background-size: 40%;
+  opacity: 0.03;
+  mix-blend-mode: screen;
+}
+
+.app-shell {
+  width: min(1100px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.app-header {
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+}
+
+.app-header h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 0.35rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.payload-card {
+  background: linear-gradient(160deg, rgba(18, 23, 36, 0.92), rgba(10, 12, 18, 0.9));
+  border: 1px solid rgba(74, 222, 128, 0.1);
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: 0 25px 60px -30px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(14px);
+  transition: transform 250ms ease, border-color 350ms ease;
+}
+
+.payload-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.payload-card h2 {
+  margin: 0 0 1rem;
+}
+
+.field-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 1.5rem;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(17, 22, 33, 0.85);
+  color: var(--text);
+  transition: border 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: rgba(74, 222, 128, 0.5);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+  transform: translateY(-2px);
+}
+
+.file-panels {
+  display: grid;
+  gap: 1.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.file-panel {
+  background: rgba(24, 28, 45, 0.7);
+  border-radius: 16px;
+  padding: 1.2rem;
+  border: 1px solid rgba(74, 222, 128, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.file-panel:hover {
+  border-color: rgba(74, 222, 128, 0.35);
+  transform: translateY(-3px);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.panel-header h3 {
+  margin: 0;
+}
+
+.ghost {
+  border: 1px solid rgba(74, 222, 128, 0.45);
+  background: transparent;
+  color: var(--text);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 220ms ease, color 220ms ease, transform 150ms ease;
+}
+
+.ghost:hover,
+.ghost:focus-visible {
+  background: rgba(34, 197, 94, 0.15);
+  transform: translateY(-1px);
+}
+
+.ghost:active {
+  transform: translateY(1px);
+}
+
+.ghost.is-disabled,
+.ghost:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.hint {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.dir-info {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  background: rgba(59, 130, 246, 0.12);
+  color: rgba(148, 163, 184, 0.95);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.progress-container {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.empty-state {
+  color: var(--muted);
+  margin: 0;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.file-progress {
+  position: relative;
+  border-radius: 16px;
+  padding: 1.1rem 1.25rem 1.25rem;
+  background: rgba(16, 21, 33, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  overflow: hidden;
+  transition: transform 240ms ease, border-color 240ms ease;
+}
+
+.file-progress:not(.complete):hover {
+  transform: translateY(-2px);
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+.file-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.file-title span:first-child {
+  font-weight: 600;
+}
+
+.file-title span:last-child {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.progress-track {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  width: 0%;
+  transition: width 200ms ease-out;
+}
+
+.file-progress.breaking::before,
+.file-progress.breaking::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 50%),
+    repeating-linear-gradient(135deg, rgba(249, 115, 22, 0.2) 0 4px, transparent 4px 8px),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.12) 0 6px, transparent 6px 12px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: breakingPulse 1.5s infinite;
+}
+
+.file-progress.breaking::after {
+  background-image: repeating-linear-gradient(90deg, rgba(34, 197, 94, 0.18) 0 3px, transparent 3px 7px);
+  animation-delay: 0.35s;
+}
+
+@keyframes breakingPulse {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 0.5;
+    transform: scale(1.015);
+  }
+  60% {
+    opacity: 0.25;
+    transform: scale(1.01) rotate(0.5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.file-progress.complete {
+  border-color: rgba(74, 222, 128, 0.5);
+  box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.25), 0 25px 60px -40px rgba(74, 222, 128, 0.55);
+}
+
+.file-progress.complete .file-title span:last-child {
+  color: var(--accent);
+}
+
+.file-progress.complete .progress-bar {
+  background: linear-gradient(90deg, var(--accent), #bbf7d0);
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.45);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1.5rem 1rem 2.5rem;
+  }
+
+  .payload-card {
+    padding: 1.4rem;
+  }
+
+  .file-panels {
+    grid-template-columns: 1fr;
+  }
+}

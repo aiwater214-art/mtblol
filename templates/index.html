@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MTBLOL Downloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <h1>MTBLOL Payload Orchestrator</h1>
+        <p class="subtitle">Configure payload arguments, launch downloads, and watch each file crack into place.</p>
+      </header>
+
+      <main class="content">
+        <section class="payload-card" aria-labelledby="payload-form-heading">
+          <h2 id="payload-form-heading">Payload Settings</h2>
+          <form id="payload-form">
+            <div class="field-grid">
+              <label class="field">
+                <span class="label">Project</span>
+                <input type="text" id="project" name="project" placeholder="Nether Expedition" required />
+              </label>
+              <label class="field">
+                <span class="label">Version</span>
+                <input type="text" id="version" name="version" placeholder="1.0.0" />
+              </label>
+              <label class="field">
+                <span class="label">Token</span>
+                <input type="password" id="token" name="token" placeholder="Secret access token" autocomplete="off" />
+              </label>
+              <label class="field full">
+                <span class="label">Notes</span>
+                <textarea id="notes" name="notes" rows="2" placeholder="Optional notes for the payload"></textarea>
+              </label>
+            </div>
+
+            <div class="file-panels">
+              <div class="file-panel" aria-labelledby="input-files-heading">
+                <div class="panel-header">
+                  <h3 id="input-files-heading">Input Files</h3>
+                  <button type="button" class="ghost" data-trigger="input">Download Input</button>
+                </div>
+                <textarea id="input-files" name="input-files" rows="6" placeholder="level.dat\nplayerdata.dat\nconfig.json"></textarea>
+                <p class="hint">Enter one file per line. These will be saved into <strong>downloads/input</strong>.</p>
+              </div>
+
+              <div class="file-panel" aria-labelledby="output-files-heading">
+                <div class="panel-header">
+                  <h3 id="output-files-heading">Output Files</h3>
+                  <button type="button" class="ghost" data-trigger="output">Download Output</button>
+                </div>
+                <textarea id="output-files" name="output-files" rows="6" placeholder="export.zip\nsummary.txt"></textarea>
+                <p class="hint">Enter one file per line. These will be saved into <strong>downloads/output</strong>.</p>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="payload-card" aria-live="polite" aria-labelledby="progress-heading">
+          <div class="progress-header">
+            <h2 id="progress-heading">Download Progress</h2>
+            <div class="dir-info">
+              <span class="badge">downloads/input</span>
+              <span class="badge">downloads/output</span>
+            </div>
+          </div>
+          <div id="progress-container" class="progress-container">
+            <p class="empty-state">Launch a download to see realtime progress updates.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+  </body>
+</html>
