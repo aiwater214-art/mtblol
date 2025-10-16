@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MTB Downloads</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+  </head>
+  <body>
+    <main>
+      <h1>MTB Download Portal</h1>
+      <p>
+        Use the UI powered by the JavaScript bundle to initiate downloads from the
+        MTB actions service.
+      </p>
+      <form id="download-form">
+        <button type="submit">Trigger Download</button>
+      </form>
+      <p id="status" role="status"></p>
+    </main>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+  </body>
+</html>
