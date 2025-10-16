@@ -5,7 +5,7 @@ import os
 from typing import Any
 
 import requests
-from flask import Flask, Response, jsonify, render_template, request
+from flask import Flask, Response, jsonify, render_template, request, stream_with_context
 
 DEFAULT_API_URL = "http://216.234.102.170:10701/api/mtb/actions"
 API_URL_ENV_VAR = "MTB_ACTIONS_API_URL"
@@ -45,6 +45,7 @@ def create_app() -> Flask:
                 json=json_payload,
                 data=raw_payload,
                 headers=headers,
+                stream=True,
                 timeout=60,
             )
         except requests.RequestException as exc:
@@ -57,8 +58,16 @@ def create_app() -> Flask:
             if key.lower() not in excluded_response_headers
         ]
 
+        def generate() -> Any:
+            try:
+                for chunk in proxied_response.iter_content(chunk_size=8192):
+                    if chunk:
+                        yield chunk
+            finally:
+                proxied_response.close()
+
         response = Response(
-            proxied_response.content,
+            stream_with_context(generate()),
             status=proxied_response.status_code,
             headers=filtered_headers,
         )
