@@ -12,12 +12,32 @@
       });
 
       if (!response.ok) {
-        const error = await response.json().catch(() => ({ message: response.statusText }));
-        throw new Error(error.error || error.message || "Request failed");
+        const errorData = await response
+          .json()
+          .catch(async () => ({ message: await response.text().catch(() => response.statusText) }));
+        throw new Error(errorData.error || errorData.message || "Request failed");
       }
 
-      const result = await response.json().catch(() => ({}));
-      status.textContent = `Download triggered: ${JSON.stringify(result)}`;
+      const blob = await response.blob();
+      const contentDisposition = response.headers.get("content-disposition") || "";
+      let filename = "download";
+
+      const filenameMatch = /filename\*=UTF-8''([^;]+)|filename="?([^";]+)"?/i.exec(contentDisposition);
+      if (filenameMatch) {
+        filename = decodeURIComponent(filenameMatch[1] || filenameMatch[2] || filename);
+      }
+
+      const downloadUrl = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = downloadUrl;
+      anchor.download = filename;
+      anchor.style.display = "none";
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(downloadUrl), 0);
+
+      status.textContent = `Download started for ${filename}`;
     } catch (error) {
       status.textContent = `Error: ${error.message}`;
     }
