@@ -5,23 +5,14 @@ A tiny Flask-powered demo that simulates downloading input and output payloads w
 ## Getting started
 
 1. Create a virtual environment and install dependencies:
-This repository contains a minimal Flask application that serves a web UI for
-triggering MTB downloads by proxying requests to the MTB actions service.
-
-## Requirements
-
-- Python 3.10+
-- [pip](https://pip.pypa.io/)
-
-## Installation
-
-1. Create and activate a virtual environment (recommended)
 
    ```bash
    python -m venv .venv
    source .venv/bin/activate
    pip install -r requirements.txt
    ```
+
+   The provided [`requirements.txt`](requirements.txt) pins both Flask and Requests so the app and its HTTP client dependencies are installed consistently.
 
 2. Launch the development server:
 
@@ -33,26 +24,14 @@ triggering MTB downloads by proxying requests to the MTB actions service.
 
 ## Requirements
 
-A minimal `requirements.txt` is provided:
-
-```
-Flask>=2.3
-```
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   pip install Flask requests
-   ```
+- Python 3.10+
+- [pip](https://pip.pypa.io/)
 
 ## Configuration
 
-The application proxies download requests to the MTB actions service. The
-endpoint can be customized using the following environment variable:
+The application proxies download requests to the MTB actions service. The endpoint can be customized using the following environment variable:
 
-- `MTB_ACTIONS_API_URL` – overrides the default API endpoint
-  (`http://216.234.102.170:10701/api/mtb/actions`).
+- `MTB_ACTIONS_API_URL` – overrides the default API endpoint (`http://216.234.102.170:10701/api/mtb/actions`).
 
 ## Running the application
 
@@ -71,5 +50,4 @@ endpoint can be customized using the following environment variable:
 
 3. Open the app in your browser at http://127.0.0.1:5000/.
 
-Static assets are served from `app/static/`, and HTML templates live in
-`app/templates/`.
+Static assets are served from `app/static/`, and HTML templates live in `app/templates/`.
